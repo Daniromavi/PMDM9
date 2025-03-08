@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">MisPedidosPendientes</string>
+    <string name="pedidos_pendientes">Pedidos Pendientes</string>
+</resources>

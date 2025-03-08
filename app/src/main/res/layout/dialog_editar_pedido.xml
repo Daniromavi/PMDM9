@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp">
+
+    <!-- Spinner para la tienda -->
+    <Spinner
+        android:id="@+id/spinnerTiendasEditar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <!-- Fecha del pedido (o fecha estimada) -->
+    <EditText
+        android:id="@+id/editTextFechaEditar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Fecha (yyyy-mm-dd)"
+        android:focusable="false" />
+
+    <!-- Descripción -->
+    <EditText
+        android:id="@+id/editTextDescripcionEditar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Descripción" />
+
+    <!-- Importe -->
+    <EditText
+        android:id="@+id/editTextImporteEditar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Importe" />
+
+    <!-- CheckBox para marcar como recibido -->
+    <CheckBox
+        android:id="@+id/checkBoxRecibido"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Recibido" />
+
+</LinearLayout>
