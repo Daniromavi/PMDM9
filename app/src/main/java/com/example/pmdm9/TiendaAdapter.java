@@ -69,15 +69,6 @@ public class TiendaAdapter extends RecyclerView.Adapter<TiendaAdapter.TiendaView
         notifyDataSetChanged();
     }
 
-    // Método para eliminar una tienda de la lista y notificar el cambio
-    public void removeTienda(Tienda tienda) {
-        int pos = listaTiendas.indexOf(tienda);
-        if (pos != -1) {
-            listaTiendas.remove(pos);
-            notifyItemRemoved(pos);
-        }
-    }
-
     static class TiendaViewHolder extends RecyclerView.ViewHolder {
         TextView textNombreTienda;
 

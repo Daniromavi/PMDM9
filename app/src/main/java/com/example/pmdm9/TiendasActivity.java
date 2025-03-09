@@ -15,7 +15,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class TiendasActivity extends AppCompatActivity {
 
@@ -36,9 +35,10 @@ public class TiendasActivity extends AppCompatActivity {
         // Instanciamos el adapter con dos listeners: uno para editar (click corto) y otro para eliminar (long click)
         tiendaAdapter = new TiendaAdapter(
                 listaTiendas,
-                tienda -> TiendaDialogHelper.showEditarTiendaDialog(this, tienda, nuevoNombre -> actualizarTienda(tienda, nuevoNombre)),
-                tienda -> TiendaDialogHelper.showConfirmEliminarTiendaDialog(this, tienda, () -> eliminarTienda(tienda))
+                tienda -> TiendaDialogHelper.showEditarTiendaDialog(this, tienda, tiendaManager, this::obtenerTiendasDeApi),
+                tienda -> TiendaDialogHelper.showConfirmEliminarTiendaDialog(this, tienda, tiendaManager, this::obtenerTiendasDeApi) // ← Cambiado
         );
+
         recyclerViewTiendas.setAdapter(tiendaAdapter);
 
         Button bttnVolver = findViewById(R.id.bttnVolver);
@@ -46,7 +46,7 @@ public class TiendasActivity extends AppCompatActivity {
 
         Button bttnNuevaTienda = findViewById(R.id.bttnNuevaTienda);
         bttnNuevaTienda.setOnClickListener(v ->
-                TiendaDialogHelper.showNuevaTiendaDialog(this, nombreTienda -> crearTienda(nombreTienda))
+                TiendaDialogHelper.showNuevaTiendaDialog(this, tiendaManager, this::obtenerTiendasDeApi)
         );
 
         tiendaManager = new TiendaManager();
@@ -76,27 +76,6 @@ public class TiendasActivity extends AppCompatActivity {
                 runOnUiThread(() -> Toast.makeText(TiendasActivity.this, "Error: " + error, Toast.LENGTH_SHORT).show());
             }
 
-            public void onTiendasSuccess(Map<Integer, String> tiendasMap) {
-                // No se utiliza en este manager
-            }
-        });
-    }
-
-    private void crearTienda(String nombreTienda) {
-        tiendaManager.crearTienda(nombreTienda, new TiendaManager.TiendaManagerCallback() {
-            @Override
-            public void onSuccess(JSONArray resultado) {
-                runOnUiThread(() -> {
-                    Toast.makeText(TiendasActivity.this, "Tienda creada correctamente", Toast.LENGTH_SHORT).show();
-                    obtenerTiendasDeApi();
-                });
-            }
-            @Override
-            public void onFailure(String error) {
-                runOnUiThread(() -> Toast.makeText(TiendasActivity.this, "Error al crear la tienda: " + error, Toast.LENGTH_SHORT).show());
-            }
-
-            public void onTiendasSuccess(Map<Integer, String> tiendasMap) { }
         });
     }
 
@@ -114,26 +93,7 @@ public class TiendasActivity extends AppCompatActivity {
             public void onFailure(String error) {
                 runOnUiThread(() -> Toast.makeText(TiendasActivity.this, "Error al actualizar la tienda: " + error, Toast.LENGTH_SHORT).show());
             }
-
-            public void onTiendasSuccess(Map<Integer, String> tiendasMap) { }
         });
     }
 
-    private void eliminarTienda(Tienda tienda) {
-        tiendaManager.eliminarTienda(tienda.getId(), new TiendaManager.TiendaManagerCallback() {
-            @Override
-            public void onSuccess(JSONArray resultado) {
-                runOnUiThread(() -> {
-                    Toast.makeText(TiendasActivity.this, "Tienda eliminada", Toast.LENGTH_SHORT).show();
-                    tiendaAdapter.removeTienda(tienda);
-                });
-            }
-            @Override
-            public void onFailure(String error) {
-                runOnUiThread(() -> Toast.makeText(TiendasActivity.this, "Error al eliminar la tienda: " + error, Toast.LENGTH_SHORT).show());
-            }
-
-            public void onTiendasSuccess(Map<Integer, String> tiendasMap) { }
-        });
-    }
 }

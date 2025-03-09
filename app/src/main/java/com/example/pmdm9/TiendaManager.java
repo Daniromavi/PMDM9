@@ -52,7 +52,7 @@ public class TiendaManager {
             }
         });
     }
-    // Método para crear una tienda (POST)
+    // Metodo para crear una tienda (POST)
     public void crearTienda(String nombreTienda, TiendaManagerCallback callback) {
         RequestBody formBody = new FormBody.Builder()
                 .add("nombreTienda", nombreTienda)
@@ -77,7 +77,7 @@ public class TiendaManager {
         });
     }
 
-    // Método para actualizar una tienda (PUT)
+    // Metodo para actualizar una tienda (PUT)
     public void actualizarTienda(int idTienda, String nuevoNombre, TiendaManagerCallback callback) {
         try {
             String url = BASE_URL + "?idTienda=" + idTienda + "&nombreTienda=" + URLEncoder.encode(nuevoNombre, "UTF-8");
@@ -105,7 +105,7 @@ public class TiendaManager {
         }
     }
 
-    // Método para eliminar una tienda (DELETE)
+    // Metodo para eliminar una tienda (DELETE)
     public void eliminarTienda(int idTienda, TiendaManagerCallback callback) {
         String url = BASE_URL + "?idTienda=" + idTienda;
         Request request = new Request.Builder()

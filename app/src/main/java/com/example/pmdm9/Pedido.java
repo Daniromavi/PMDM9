@@ -53,9 +53,7 @@ public class Pedido {
         return descripcionPedido;
     }
 
-    public void setDescripcionPedido(String descripcionPedido) {
-        this.descripcionPedido = descripcionPedido;
-    }
+    public void setDescripcionPedido(String descripcionPedido) {this.descripcionPedido = descripcionPedido;}
 
     public double getImportePedido() {
         return importePedido;
